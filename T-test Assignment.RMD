@@ -1,0 +1,48 @@
+---
+title: "t-test questions"
+author: "Yuefu Jiang"
+date: "October 18, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+The Code can be found in OCT11.R
+
+For Two Sample t tests in R
+
+```{r t-test}
+t.test(temp ~ sex,
+       data = bodytemp)
+
+t.test(temp ~ sex,
+       data = bodytemp,
+       paired = FALSE,
+       var.equal = FALSE,
+       conf.level = 0.95)
+```
+
+Output
+
+data:  temp by sex
+t = 2.2854, df = 127.51, p-value = 0.02394
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.03881298 0.53964856
+sample estimates:
+mean in group female   mean in group male 
+            98.39385             98.10462 
+
+1. This data was 
+## Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+#plot(pressure)
+```
+
