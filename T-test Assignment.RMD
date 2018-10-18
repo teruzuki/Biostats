@@ -9,13 +9,80 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
 The Code can be found in OCT11.R
 
-For Two Sample t tests in R
+## One Sample T-test
+```{r bodytemp}
+t.test(bodytemp$temp, mu = 98.6)
+```
+```
+One Sample t-test
 
-```{r t-test}
+data:  bodytemp$temp
+t = -5.4548, df = 129, p-value = 2.411e-07
+alternative hypothesis: true mean is not equal to 98.6
+95 percent confidence interval:
+ 98.12200 98.37646
+sample estimates:
+mean of x 
+ 98.24923 
+```
+1. "mu" stands for the true mean of the population.
+2. P-value interpretation: In this case, the p-value means that the probability of mu being 98.6 is 2.411e-07.
+3. Ho in words is "the true mean of the population is equal to 98.6".
+4. The 95% CI is centered on the mean of x: 98.24923.
+
+## one Sample T-test: two Parameterizations.
+A)
+```{r bodytemp}
+t.test(bodytemp$temp, mu = 98.6) 
+## this is a one sample t-test on the body temperature, with an null hyposisized true mean of 98.6.
+```
+```
+One Sample t-test
+
+data:  bodytemp$temp
+#data source
+t = -5.4548, df = 129, p-value = 2.411e-07
+#test statistics , degrees of freedom, p-value displayed
+alternative hypothesis: true mean is not equal to 98.6
+#alternative hyposthesis listed
+95 percent confidence interval:
+ 98.12200 98.37646
+#95% confidence interval: that we are 95% sure the true mean of the population, mu will fall in this range.
+sample estimates:
+mean of x 
+ 98.24923 
+```
+B)
+```{r bodytemp}
+t.test(bodytemp$temp - 98.6, mu = 0)
+## this is a one sample t-test on the body temperature, with an null hyposisized difference between 98.6 and true mean being 0.
+```
+```
+One Sample t-test
+
+data:  bodytemp$temp - 98.6 #data source
+t = -5.4548, df = 129, p-value = 2.411e-07
+#test statistics , degrees of freedom, p-value displayed
+alternative hypothesis: true mean is not equal to 0
+#alternative hyposthesis listed
+95 percent confidence interval:
+ -0.4779971 -0.2235414
+# that we are 95% sure that the difference between true mean of population, mu and 98.6 will fall in this range.
+sample estimates:
+ mean of x 
+-0.3507692
+```
+1. While mathmatically the calculations were the same in these tests, the statistical meaning of them were different. When mu = 98.6, this test is a plain one-sample t-test that estimate the true mean of the population.
+2. While the one with mu = 0 is a paired test, as a "treatment" occurs and we are interested in whether the difference measured is constantly away from 0.
+3. In this case, these result did support the same conclusion mathmatically. However, the statistical question of (A) was whether not the true mean of the population was 98.6, while in (B) the questions becomes whether difference between true mean and 98.6 is 0, which measure the changes.
+4. Like stated above, the question asked above were different. In some ways, these might be complementary.
+5. Both of these outputs have information of raw effect size. 
+## Two Sample t tests in R
+
+
+```{r bodytemp}
 t.test(temp ~ sex,
        data = bodytemp)
 
@@ -38,7 +105,9 @@ mean in group female   mean in group male
             98.39385             98.10462 
 ```
 
-1. This data was 
+1. This analysis showed significant difference between males and females in body temperature at the confidence level of 0.95.
+2. The absolute effect size of this output is 
+
 ## Plots
 
 You can also embed plots, for example:
